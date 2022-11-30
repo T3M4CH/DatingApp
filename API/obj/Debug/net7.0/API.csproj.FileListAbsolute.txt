@@ -70,3 +70,11 @@ C:\Users\piche\DatingApp\api\bin\Debug\net7.0\runtimes\linux-x64\native\libsqlit
 C:\Users\piche\DatingApp\api\bin\Debug\net7.0\runtimes\osx-x64\native\libsqlite3.dylib
 C:\Users\piche\DatingApp\api\bin\Debug\net7.0\runtimes\win7-x64\native\sqlite3.dll
 C:\Users\piche\DatingApp\api\bin\Debug\net7.0\runtimes\win7-x86\native\sqlite3.dll
+C:\Users\piche\DatingApp\API\bin\Debug\net7.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\piche\DatingApp\API\bin\Debug\net7.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\piche\DatingApp\API\bin\Debug\net7.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\piche\DatingApp\API\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\piche\DatingApp\API\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\piche\DatingApp\API\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\piche\DatingApp\API\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\piche\DatingApp\API\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
