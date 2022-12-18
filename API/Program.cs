@@ -1,5 +1,7 @@
+using API.Data;
 using API.Extensions;
 using API.Middleware;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,22 +17,39 @@ builder.AddIdentityServices();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+var scope = app.Services.CreateScope();
+var services = scope.ServiceProvider;
+try
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    var context = services.GetRequiredService<DataContext>();
+    await context.Database.MigrateAsync();
+    await Seed.SeedUsers(context);
+    
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
+
+    app.UseMiddleware<ExceptionMiddleware>();
+
+    app.UseHttpsRedirection();
+
+    app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
+
+    app.UseAuthentication();
+    app.UseAuthorization();
+
+    app.MapControllers();
+
+    await app.RunAsync();
+}
+catch (Exception exception)
+{
+    var logger = app.Services.GetRequiredService<ILogger<Program>>();
+    logger.LogError(exception, "An error occured during migration");
 }
 
-app.UseMiddleware<ExceptionMiddleware>();
 
-app.UseHttpsRedirection();
 
-app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
-
-app.UseAuthentication();
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
+// Configure the HTTP request pipeline.

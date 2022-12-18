@@ -1,4 +1,5 @@
 ﻿using API.Data;
+using API.Helpers;
 using API.Interfaces;
 using API.Services;
 using Microsoft.EntityFrameworkCore;
@@ -16,8 +17,10 @@ public static class ApplicationServiceExtensions
         {
             options.UseSqlite(config.GetConnectionString("DefaultConnection"));
         });
-        
+
+        services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<ITokenService, TokenService>();
+        services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
         
         return builder;
     }

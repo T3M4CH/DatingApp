@@ -78,3 +78,6 @@ C:\Users\piche\DatingApp\API\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dl
 C:\Users\piche\DatingApp\API\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\piche\DatingApp\API\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.dll
 C:\Users\piche\DatingApp\API\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\piche\DatingApp\api\bin\Debug\net7.0\Data\UserSeedData.json
+C:\Users\piche\DatingApp\API\bin\Debug\net7.0\AutoMapper.dll
+C:\Users\piche\DatingApp\API\bin\Debug\net7.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
