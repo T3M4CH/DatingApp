@@ -3,7 +3,7 @@ import * as http from "http";
 import {HttpClient} from "@angular/common/http";
 import {Member} from "../../models/member";
 import {MembersService} from "../../_services/members.service";
-import {EMPTY} from "rxjs";
+import {EMPTY, Observable} from "rxjs";
 
 @Component({
   selector: 'app-member-list',
@@ -11,17 +11,11 @@ import {EMPTY} from "rxjs";
   styleUrls: ['./member-list.component.css']
 })
 export class MemberListComponent implements OnInit {
-  members: Member[] = new Array<Member>;
+  members$: Observable<Member[]> = new Observable<Member[]>();
 
   constructor(private memberService: MembersService) { }
 
   ngOnInit(): void {
-    this.loadMembers()
-  }
-
-  loadMembers(){
-    this.memberService.getMembers().subscribe(members => {
-      this.members = members;
-    })
+    this.members$ = this.memberService.getMembers();
   }
 }
