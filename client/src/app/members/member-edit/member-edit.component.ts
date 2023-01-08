@@ -34,6 +34,7 @@ export class MemberEditComponent implements OnInit {
   user: User = new class implements User {
     token: string = '';
     username: string = '';
+    photoUrl: string = '';
   }
   @HostListener('window:beforeunload', ['$event']) unloadNotification($event: any){
     if(this.editForm.dirty){

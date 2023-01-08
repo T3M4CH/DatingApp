@@ -12,13 +12,15 @@ public static class ApplicationServiceExtensions
     {
         var services = builder.Services;
         var config = builder.Configuration;
-        
+
+        services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
         services.AddDbContext<DataContext>(options =>
         {
             options.UseSqlite(config.GetConnectionString("DefaultConnection"));
         });
 
-        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IPhotoService, PhotoService>();
+        services.AddScoped<IUserRepository, UserRepository>(); 
         services.AddScoped<ITokenService, TokenService>();
         services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
         

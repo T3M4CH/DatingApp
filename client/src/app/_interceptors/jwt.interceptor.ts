@@ -19,6 +19,7 @@ export class JwtInterceptor implements HttpInterceptor {
     let currentUser: User = new class implements User {
       token: string = "";
       username: string = "";
+      photoUrl: string = '';
     };
 
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => currentUser = user);
