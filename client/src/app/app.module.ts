@@ -28,6 +28,7 @@ import { TextInputComponent } from './_forms/text-input/text-input.component';
 import {ToFormControlPipe} from './_pipes/form-control-pipe.pipe';
 import { DateInputComponent } from './_forms/date-input/date-input.component';
 import {BsDatepickerModule} from "ngx-bootstrap/datepicker";
+import {TimeagoModule} from "ngx-timeago";
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import {BsDatepickerModule} from "ngx-bootstrap/datepicker";
         SharedModule,
         NgxSpinnerModule,
         BsDatepickerModule,
+        TimeagoModule,
     ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},

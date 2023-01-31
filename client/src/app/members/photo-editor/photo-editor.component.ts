@@ -34,6 +34,8 @@ export class PhotoEditorComponent implements OnInit {
   hasBaseDropzoneOver = false;
   baseUrl = environment.apiUrl;
   user: User = new class implements User {
+    gender: string = '';
+    knownAs: string = '';
     token: string = '';
     username: string = '';
     photoUrl: string = '';

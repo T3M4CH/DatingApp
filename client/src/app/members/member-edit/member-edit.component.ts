@@ -32,6 +32,8 @@ export class MemberEditComponent implements OnInit {
   };
 
   user: User = new class implements User {
+    gender: string  = '';
+    knownAs: string  = '';
     token: string = '';
     username: string = '';
     photoUrl: string = '';

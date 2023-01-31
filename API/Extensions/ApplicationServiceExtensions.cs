@@ -19,6 +19,7 @@ public static class ApplicationServiceExtensions
             options.UseSqlite(config.GetConnectionString("DefaultConnection"));
         });
 
+        services.AddScoped<LogUserActivity>();
         services.AddScoped<IPhotoService, PhotoService>();
         services.AddScoped<IUserRepository, UserRepository>(); 
         services.AddScoped<ITokenService, TokenService>();

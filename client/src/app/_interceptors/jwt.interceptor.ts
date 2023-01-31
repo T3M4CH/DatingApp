@@ -17,6 +17,8 @@ export class JwtInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     let currentUser: User = new class implements User {
+      gender: string = '';
+      knownAs: string = ''
       token: string = '';
       username: string = '';
       photoUrl: string = '';
