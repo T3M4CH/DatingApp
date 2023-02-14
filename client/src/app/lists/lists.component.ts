@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import * as http from "http";
 import {HttpClient} from "@angular/common/http";
+import {Member} from "../models/member";
+import {MembersService} from "../_services/members.service";
+import {Pagination} from "../models/pagination";
 
 @Component({
   selector: 'app-lists',
@@ -9,19 +11,33 @@ import {HttpClient} from "@angular/common/http";
 })
 export class ListsComponent implements OnInit {
 
-  users: any
+  members: Partial<Member[]> = new Array<Member>();
+  predicate = 'liked';
+  pageNumber = 1;
+  pageSize = 5;
+  pagination: Pagination = new class implements Pagination {
+    currentPage: number = 1;
+    itemsPerPage: number = 1;
+    totalItems: number = 1;
+    totalPages: number = 1;
+  };
 
-  constructor(private http: HttpClient) {
+  constructor(private memberService : MembersService) {
   }
 
   ngOnInit(): void {
-    this.getUsers();
+    this.loadLikes();
   }
 
-  getUsers(): void {
-    this.http.get("http://localhost:5162/api/users").subscribe(response => {
-      this.users = response;
-    }, error => console.log("ОШИБКА ОТМЕНА ОПЕРАЦИИ!!!!"))
+  loadLikes(){
+    this.memberService.getLikes(this.predicate, this.pageNumber, this.pageSize).subscribe(response => {
+      this.members = response.result!;
+      this.pagination = response.pagination!;
+    })
   }
 
+  pageChanged(event : any){
+    this.pageNumber = event.page;
+    this.loadLikes();
+  }
 }

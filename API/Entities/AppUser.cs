@@ -19,9 +19,6 @@ public class AppUser
     public string City { get; set; } = Empty;
     public string Country { get; set; } = Empty;
     public ICollection<Photo> Photos { get; set; }
-
-    // public int GetAge()
-    // {
-    //     return DateOfBirth.ToAge();
-    // }
+    public ICollection<UserLike> LikedByUsers { get; set; }
+    public ICollection<UserLike> LikedUsers { get; set; }
 }
