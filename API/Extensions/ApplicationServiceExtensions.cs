@@ -22,6 +22,7 @@ public static class ApplicationServiceExtensions
         services.AddScoped<LogUserActivity>();
         services.AddScoped<IPhotoService, PhotoService>();
         services.AddScoped<ILikesRepository, LikesRepository>();
+        services.AddScoped<IMessageRepository, MessageRepository>();
         services.AddScoped<IUserRepository, UserRepository>(); 
         services.AddScoped<ITokenService, TokenService>();
         services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);

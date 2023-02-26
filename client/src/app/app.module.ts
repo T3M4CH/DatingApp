@@ -29,6 +29,7 @@ import {ToFormControlPipe} from './_pipes/form-control-pipe.pipe';
 import { DateInputComponent } from './_forms/date-input/date-input.component';
 import {BsDatepickerModule} from "ngx-bootstrap/datepicker";
 import {TimeagoModule} from "ngx-timeago";
+import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import {TimeagoModule} from "ngx-timeago";
     TextInputComponent,
     ToFormControlPipe,
     DateInputComponent,
+    MemberMessagesComponent,
   ],
     imports: [
         BrowserAnimationsModule,
