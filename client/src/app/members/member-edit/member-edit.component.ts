@@ -37,6 +37,7 @@ export class MemberEditComponent implements OnInit {
     token: string = '';
     username: string = '';
     photoUrl: string = '';
+    roles = [];
   }
   @HostListener('window:beforeunload', ['$event']) unloadNotification($event: any){
     if(this.editForm.dirty){

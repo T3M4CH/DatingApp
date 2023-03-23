@@ -2,6 +2,7 @@
 using API.Helpers;
 using API.Interfaces;
 using API.Services;
+using API.SignalR;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Extensions;
@@ -13,12 +14,13 @@ public static class ApplicationServiceExtensions
         var services = builder.Services;
         var config = builder.Configuration;
 
+        services.AddSingleton<PresenceTracker>();
         services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
         services.AddDbContext<DataContext>(options =>
         {
             options.UseSqlite(config.GetConnectionString("DefaultConnection"));
         });
-
+        
         services.AddScoped<LogUserActivity>();
         services.AddScoped<IPhotoService, PhotoService>();
         services.AddScoped<ILikesRepository, LikesRepository>();

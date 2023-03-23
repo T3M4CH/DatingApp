@@ -22,6 +22,7 @@ export class JwtInterceptor implements HttpInterceptor {
       token: string = '';
       username: string = '';
       photoUrl: string = '';
+      roles = [];
     };
 
 

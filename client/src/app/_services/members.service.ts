@@ -22,6 +22,7 @@ export class MembersService {
     photoUrl: string = '';
     token: string = '';
     username: string = '';
+    roles = [];
   };
   userParams: UserParams = new UserParams(this.user);
 
@@ -47,6 +48,7 @@ export class MembersService {
       photoUrl: string = '';
       token: string = '';
       username: string = '';
+      roles = [];
     });
 
     return this.userParams;

@@ -39,6 +39,7 @@ export class PhotoEditorComponent implements OnInit {
     token: string = '';
     username: string = '';
     photoUrl: string = '';
+    roles = [];
   }
 
   constructor(private accountService: AccountService, private memberService: MembersService) {

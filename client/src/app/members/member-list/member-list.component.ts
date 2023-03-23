@@ -23,6 +23,7 @@ export class MemberListComponent implements OnInit {
     photoUrl: string = '';
     token: string = '';
     username: string = '';
+    roles = [];
   };
   userParams: UserParams = new UserParams(this.user);
   genderList = [{value: 'male', display: 'Males'}, {value: 'female', display: 'Females'}];

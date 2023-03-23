@@ -1,52 +1,45 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {MembersService} from "../../_services/members.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Member} from "../../models/member";
 import {Photo} from "../../models/photo";
 import {NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions} from "@kolkov/ngx-gallery";
 import {TabDirective, TabsetComponent, TabsetConfig} from "ngx-bootstrap/tabs";
 import {Message} from "../../models/message";
 import {MessageService} from "../../_services/message.service";
+import {PresenceService} from "../../_services/presence.service";
+import {AccountService} from "../../_services/account.service";
+import {User} from "../../models/user";
+import {take} from "rxjs";
 
 @Component({
   selector: 'app-member-detail',
   templateUrl: './member-detail.component.html',
   styleUrls: ['./member-detail.component.css']
 })
-export class MemberDetailComponent implements OnInit {
+export class MemberDetailComponent implements OnInit, OnDestroy {
   @ViewChild('memberTabs', {static: true}) memberTabs: TabsetComponent = null!
-  member: Member = new class implements Member {
-    age: number = 0;
-    city: string = "";
-    country: string = "";
-    created: Date = new Date();
-    gender: string = "";
-    id: number = 1;
-    interests: string = "";
-    knownAs: string = "";
-    lastActive: Date = new Date();
-    lookingFor: string = "";
-    photoUrl: string = "";
-    photos: Photo[] = [];
-    username: string = "";
-  };
-
+  member!: Member;
   activeTab: TabDirective = null!;
   messages: Message[] = [];
   galleryOptions: NgxGalleryOptions[] = [];
   galleryImages: NgxGalleryImage[] = [];
+  user!: User;
 
-  constructor(private memberService: MembersService, private route: ActivatedRoute,
-              private messageService: MessageService) {
-
+  constructor(public presence: PresenceService, private route: ActivatedRoute,
+              private messageService: MessageService, private accountService: AccountService, private router: Router) {
+    this.accountService.currentUser$.pipe(take(1)).subscribe(user => {
+      this.user = user;
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    })
   }
 
   ngOnInit(): void {
-    this.route.data.subscribe((data : any) => {
+    this.route.data.subscribe((data: any) => {
       this.member = data.member;
     })
 
-    this.route.queryParams.subscribe((params : any) => {
+    this.route.queryParams.subscribe((params: any) => {
       params.tab ? this.selectTab(params.tab) : this.selectTab(0);
     });
 
@@ -64,33 +57,38 @@ export class MemberDetailComponent implements OnInit {
     this.galleryImages = this.getImages();
   }
 
-  getImages() : NgxGalleryImage[]{
+  getImages(): NgxGalleryImage[] {
     const imageUrls = [];
-    for (const photo of this.member.photos){
+    for (const photo of this.member.photos) {
       imageUrls.push({
-        small:photo?.url,
-        medium:photo?.url,
-        big:photo?.url
+        small: photo?.url,
+        medium: photo?.url,
+        big: photo?.url
       })
     }
     return imageUrls;
   }
 
-  loadMessages(){
+  loadMessages() {
     this.messageService.getMessageThread(this.member.username).subscribe(messages => {
       this.messages = messages;
     })
   }
 
-  selectTab(tabId: number){
+  selectTab(tabId: number) {
     this.memberTabs.tabs[tabId].active = true;
   }
 
-  onTabActivated(data: TabDirective){
+  onTabActivated(data: TabDirective) {
     this.activeTab = data;
-    if(this.activeTab.heading === 'Messages' && this.messages.length === 0){
-      this.loadMessages();
+    if (this.activeTab.heading === 'Messages' && this.messages.length === 0) {
+      this.messageService.createHubConnection(this.user, this.member.username);
+    } else {
+      this.messageService.stopHubConnection();
     }
   }
 
+  ngOnDestroy(): void {
+    this.messageService.stopHubConnection();
+  }
 }

@@ -1,0 +1,16 @@
+<div class="row">
+  <table class="table">
+    <tr>
+      <th style="width: 100px">Username</th>
+      <th style="width: 400px">Active roles</th>
+      <th style="width: 1px"></th>
+    </tr>
+    <tr style="border-bottom: 2px solid #e1e1e1;" *ngFor="let user of users">
+      <td>{{user?.username}}</td>
+      <td>
+        <div class="role-list" *ngFor="let role of user?.roles; let isLast=last">{{role.name}}{{isLast ? '' : ','}}</div>
+      </td>
+      <td><button (click)="openRolesModal(user!)" class="btn" >Edit Roles</button></td>
+    </tr>
+  </table>
+</div>
